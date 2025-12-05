@@ -3,40 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bank App 9015493</title>
+    <title>Bank App</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
-        <h1>Bank App</h1>
-    </header>
+<header>
+    <h1>Bank App</h1>
+</header>
 
-    <nav>
-        <ul>
-            <li><a href="#" data-section="home">Home</a></li>
-            <li><a href="#" data-section="rekeningen">Rekeningen</a></li>
-            <li><a href="#" data-section="overschrijvingen">Overschrijvingen</a></li>
-        </ul>
-    </nav>
+<nav>
+    <ul>
+        <li><a href="#" data-section="home">Home</a></li>
+        <li><a href="#" data-section="rekeningen">Rekeningen</a></li>
+        <li><a href="#" data-section="overschrijvingen">Overschrijvingen</a></li>
+        <li><a href="#" data-section="login">Login</a></li>
+    </ul>
+</nav>
 
-    <main>
-        <section id="home" class="section visible">
-            <h2>Home</h2>
-            <p>Welkom bij de bank applicatie.</p>
-        </section>
+<main>
 
-        <section id="rekeningen" class="section">
-            <h2>Rekeningen</h2>
-            <p>Hier komen de rekeningen.</p>
-        </section>
+    <center><section id="home" class="section visible">
+        <h2>Home</h2>
+        <p>Welkom bij de bank applicatie.</p>
+    </center></section>
 
-        <section id="overschrijvingen" class="section">
-            <h2>Overschrijvingen</h2>
-            <p>Hier komen de overschrijvingen.</p>
-        </section>
-    </main>
+    <section id="login" class="section">
+        <h2>Inloggen</h2>
 
-    <script src="js/app.js"></script>
+        <label>Gebruikersnaam:</label>
+        <input type="text" id="username">
+
+        <label>Wachtwoord:</label>
+        <input type="password" id="password">
+
+        <button id="login-btn">Inloggen</button>
+        <p id="login-error"></p>
+    </section>
+
+    <section id="rekeningen" class="section">
+        <h2>Rekeningen</h2>
+        <p>Hier komen later de rekeningen.</p>
+    </section>
+
+    <section id="overschrijvingen" class="section">
+        <h2>Overschrijvingen</h2>
+        <p>Hier komen later de overschrijvingen.</p>
+    </section>
+
+</main>
+
+<script src="app.js"></script>
 </body>
 </html>
