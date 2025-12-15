@@ -1,55 +1,83 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bank App</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bank App</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<header>
-    <h1>Bank App</h1>
+<header class="topbar">
+  <h1>Bank App</h1>
 </header>
 
-<nav>
-    <ul>
-        <li><a href="#" data-section="home">Home</a></li>
-        <li><a href="#" data-section="rekeningen">Rekeningen</a></li>
-        <li><a href="#" data-section="overschrijvingen">Overschrijvingen</a></li>
-        <li><a href="#" data-section="login">Login</a></li>
-    </ul>
+<nav class="nav">
+  <ul>
+    <li><a href="#" data-section="home">Home</a></li>
+    <li><a href="#" data-section="rekeningen">Rekeningen</a></li>
+    <li><a href="#" data-section="overschrijvingen">Overschrijvingen</a></li>
+    <li><a href="#" data-section="login" id="nav-login">Login</a></li>
+    <li><a href="#" id="nav-logout" class="hidden">Uitloggen</a></li>
+  </ul>
 </nav>
 
-<main>
+<main class="container">
 
-    <center><section id="home" class="section visible">
-        <h2>Home</h2>
-        <p>Welkom bij de bank applicatie.</p>
-    </center></section>
+  <section id="home" class="section visible">
+    <h2>Home</h2>
+    <p>Welkom bij de bank applicatie.</p>
+    <p class="hint">Tip: log in om je rekeningen te beheren.</p>
+  </section>
 
-    <section id="login" class="section">
-        <h2>Inloggen</h2>
+  <section id="login" class="section">
+    <h2>Inloggen</h2>
 
-        <label>Gebruikersnaam:</label>
-        <input type="text" id="username">
+    <div class="form">
+      <label for="username">Gebruikersnaam</label>
+      <input type="text" id="username" placeholder="bijv. jan" />
 
-        <label>Wachtwoord:</label>
-        <input type="password" id="password">
+      <label for="password">Wachtwoord</label>
+      <input type="password" id="password" placeholder="bijv. test123" />
 
-        <button id="login-btn">Inloggen</button>
-        <p id="login-error"></p>
-    </section>
+      <button id="login-btn">Inloggen</button>
+      <p id="login-error" class="error"></p>
+      <p class="hint">Test accounts: jan/test123 of anna/bank2025</p>
+    </div>
+  </section>
 
-    <section id="rekeningen" class="section">
-        <h2>Rekeningen</h2>
-        <p>Hier komen later de rekeningen.</p>
-    </section>
+  <section id="rekeningen" class="section">
+    <div class="card">
+      <h2>Rekeningbeheer Dashboard</h2>
+      <h3>Uw Rekeningen</h3>
 
-    <section id="overschrijvingen" class="section">
-        <h2>Overschrijvingen</h2>
-        <p>Hier komen later de overschrijvingen.</p>
-    </section>
+      <div id="accounts-list" class="accounts"></div>
+
+      <button id="open-create" class="primary">Nieuwe Rekening Aanmaken</button>
+
+      <div id="create-box" class="create hidden">
+        <h4>Nieuwe rekening</h4>
+
+        <label for="account-name">Rekeningnaam</label>
+        <input type="text" id="account-name" placeholder="bijv. Betaalrekening" />
+
+        <label for="account-balance">Startsaldo (€)</label>
+        <input type="number" id="account-balance" placeholder="bijv. 1500" step="0.01" />
+
+        <div class="row">
+          <button id="create-account" class="primary">Aanmaken</button>
+          <button id="cancel-create" class="ghost">Annuleren</button>
+        </div>
+
+        <p id="account-error" class="error"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="overschrijvingen" class="section">
+    <h2>Overschrijvingen</h2>
+    <p>Hier komen later de overschrijvingen.</p>
+  </section>
 
 </main>
 
