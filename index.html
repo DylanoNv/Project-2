@@ -9,7 +9,7 @@
 <body>
 
 <header class="topbar">
-  <h1>Bank App</h1>
+  <h1>Bank App Dylano Nietveld</h1>
 </header>
 
 <nav class="nav">
@@ -27,7 +27,6 @@
   <section id="home" class="section visible">
     <h2>Home</h2>
     <p>Welkom bij de bank applicatie.</p>
-    <p class="hint">Tip: log in om je rekeningen te beheren.</p>
   </section>
 
   <section id="login" class="section">
@@ -75,9 +74,29 @@
   </section>
 
   <section id="overschrijvingen" class="section">
-    <h2>Overschrijvingen</h2>
-    <p>Hier komen later de overschrijvingen.</p>
-  </section>
+  <div class="card">
+    <h2>Geld Overschrijven</h2>
+
+    <div class="form">
+      <label for="from-account">Van rekening</label>
+      <select id="from-account"></select>
+
+      <label for="to-account">Naar rekening</label>
+      <select id="to-account"></select>
+
+      <label for="transfer-amount">Bedrag (€)</label>
+      <input type="number" id="transfer-amount" placeholder="bijv. 100" step="0.01" min="0" />
+
+      <button id="transfer-btn" class="primary">Overschrijven</button>
+
+      <div id="transfer-message" class="message hidden"></div>
+
+      <div id="success-visual" class="success-visual hidden">
+        <img src="success.png" alt="Succes" />
+      </div>
+    </div>
+  </div>
+</section>
 
 </main>
 
