@@ -26,6 +26,21 @@ const accountNameInput = document.getElementById("account-name");
 const accountBalanceInput = document.getElementById("account-balance");
 const accountError = document.getElementById("account-error");
 
+// transacties
+
+let transactions = [
+  { id: 1, type: "inkomend", datum: "2025-11-01", bedrag: 250.00 },
+  { id: 2, type: "uitgaand", datum: "2025-11-03", bedrag: 100.00 },
+  { id: 3, type: "inkomend", datum: "2025-11-05", bedrag: 500.00 },
+  { id: 4, type: "uitgaand", datum: "2025-11-10", bedrag: 75.00 }
+];
+let nextTransactionId = 5;
+
+function vandaag() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+
 // verbergt secties
 function hideAll() {
   sections.forEach(sec => sec.classList.remove("visible"));
@@ -43,6 +58,55 @@ function euro(amount) {
     currency: "EUR"
   }).format(amount);
 }
+
+// render transacties
+
+const transactionsList = document.getElementById("transactions-list");
+
+function renderTransactions(list) {
+  transactionsList.innerHTML = "";
+  
+  list.forEach(t => {
+    const div = document.createElement("div");
+    div.className = "transaction-row";
+
+    div.innerHTML = `
+    <strong>Type:</strong> ${t.type}<br>
+    <strong>Datum:</strong> ${t.datum}<br>
+    <strong>Bedrag:</strong> ${euro(t.bedrag)}
+    `;
+
+    transactionsList.appendChild(div);
+  });
+}
+
+// filters
+const filterType = document.getElementById("filter-type");
+const filterDate = document.getElementById("filter-date");
+const filterBtn = document.getElementById("filter-btn");
+const resetBtn = document.getElementById("reset-filter-btn");
+
+filterBtn.addEventListener("click", () => {
+  let result = transactions;
+
+  // filter op type
+  if (filterType.value !== "alle") {
+    result = result.filter(t => t.type === filterType.value);
+  }
+
+  // filter op datum
+  if (filterDate.value !== "") {
+    result = result.filter(t => t.datum === filterDate.value);
+  }
+
+  renderTransactions(result);
+});
+
+resetBtn.addEventListener("click", () => {
+  filterType.value = "alle";
+  filterDate.value = "";
+  renderTransactions(transactions);
+});
 
 // render rekeningen
 function renderAccounts() {
@@ -63,9 +127,12 @@ function renderAccounts() {
 document.querySelectorAll("nav a[data-section]").forEach(link => {
   link.addEventListener("click", e => {
     e.preventDefault();
-
+  
     const target = link.dataset.section;
 
+    if (target === "transacties") {
+      renderTransactions(transactions);
+    }
     // blokkeer als je niet ingelogd bent
 
     if (!isLoggedIn && (target === "rekeningen" || target === "overschrijvingen")) {
