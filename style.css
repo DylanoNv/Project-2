@@ -164,3 +164,18 @@ button {
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
+
+.transactions {
+  margin-top: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.transactions-row {
+  background: #f3f4f6;
+  padding: 14px 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  font-size: 14px;
+  line-height: 1.5;
+}

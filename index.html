@@ -16,6 +16,7 @@
   <ul>
     <li><a href="#" data-section="home">Home</a></li>
     <li><a href="#" data-section="rekeningen">Rekeningen</a></li>
+    <li><a href="#" data-section="transacties">Transacties</a></li>
     <li><a href="#" data-section="overschrijvingen">Overschrijvingen</a></li>
     <li><a href="#" data-section="login" id="nav-login">Login</a></li>
     <li><a href="#" id="nav-logout" class="hidden">Uitloggen</a></li>
@@ -29,6 +30,7 @@
     <p>Welkom bij de bank applicatie.</p>
   </section>
 
+        <!--Inloggen-->
   <section id="login" class="section">
     <h2>Inloggen</h2>
 
@@ -45,6 +47,8 @@
     </div>
   </section>
 
+
+          <!--Rekeningen-->
   <section id="rekeningen" class="section">
     <div class="card">
       <h2>Rekeningbeheer Dashboard</h2>
@@ -73,6 +77,8 @@
     </div>
   </section>
 
+
+      <!--Overschrijven-->
   <section id="overschrijvingen" class="section">
   <div class="card">
     <h2>Geld Overschrijven</h2>
@@ -95,6 +101,37 @@
         <img src="success.png" alt="Succes" />
       </div>
     </div>
+  </div>
+</section>
+
+
+    <!--Transacties-->
+<section id="transacties"class="section">
+  <div class="card">
+    <h2>Transactiegeschiedenis</h2>
+
+    <div class="filters">
+      <div class="filter-group">
+        <label for="filter-type">Filter op type:</label>
+        <select id="filter-type">
+          <option value="alle">Alle</option>
+          <option value="inkomend">Inkomend</option>
+          <option value="uitgaand">Uitgaand</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <label for="filter-date">Filter op datum:</label>
+      <input type="date" id="filter-date" />
+    </div>
+
+    <button id="filter-btn" class="primary">Filteren</button>
+    <button id="reset-filter-btn" class="ghost">Reset</button>
+    </div>
+
+    <div id="transactions-list" class="transactions"></div>
+    <p id="transactions-empty" class="hint hidden">Geen transacties gevonden.</p>
   </div>
 </section>
 

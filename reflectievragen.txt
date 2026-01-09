@@ -5,3 +5,12 @@ WEEK 4
 2: Ik heb alleen gebruikt toen ik vastliep bij het javascript gedeelte en gevraagd op een uitleggende manier zodat ik alsnog zelf op het antwoord kom
 
 3: grotendeels wel alleen door soms ai voor betere uitleg te vragen zorgt het er wel voor dat ik het sneller begrijp en af heb
+
+WEEK 5
+
+1: ik ben nu een stuk comfortabeler met arrays binnen javascript en ik heb een beetje geleerd hoe je dingen kan filteren.
+
+2: met de filters heb ik uiteindelijk aan ai gevraagd of die het mij beter kon uitleggen,
+en na dat is het best prima gelukt en ik verwacht dat ik de volgende keer ook geen ai meer nodig heb voor zoiets
+
+3: deels de basis wel maar met het filteren en renderen in javascript had ik zonder betere uitleg van ai veelste lang er mee bezig geweest.
