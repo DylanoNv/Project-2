@@ -14,3 +14,11 @@ WEEK 5
 en na dat is het best prima gelukt en ik verwacht dat ik de volgende keer ook geen ai meer nodig heb voor zoiets
 
 3: deels de basis wel maar met het filteren en renderen in javascript had ik zonder betere uitleg van ai veelste lang er mee bezig geweest.
+
+WEEK 6
+
+1: Ik snap nu beter hoe je een functie kan maken met kopen en verkopen
+
+2: Ik heb ai gebruikt om de bedragen te rekenen en voor de saldo check 
+
+3: Grotendeels wel alleen had ik echt veelste lang bezig geweest met de saldo check goed te krijgen.

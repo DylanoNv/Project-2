@@ -18,6 +18,7 @@
     <li><a href="#" data-section="rekeningen">Rekeningen</a></li>
     <li><a href="#" data-section="transacties">Transacties</a></li>
     <li><a href="#" data-section="overschrijvingen">Overschrijvingen</a></li>
+    <li><a href="#" data-section="beleggingen">Beleggingen</a></li>
     <li><a href="#" data-section="login" id="nav-login">Login</a></li>
     <li><a href="#" id="nav-logout" class="hidden">Uitloggen</a></li>
   </ul>
@@ -132,6 +133,34 @@
 
     <div id="transactions-list" class="transactions"></div>
     <p id="transactions-empty" class="hint hidden">Geen transacties gevonden.</p>
+  </div>
+</section>
+
+    <!--Beleggingen-->
+<section id="beleggingen" class="section">
+  <div class="card">
+    <h2>Beleggingen</h2>
+
+    <p><strong>Beschikbaar geld:</strong> <span id="invest-cash">€0,00</span></p>
+
+    <div class="form">
+      <label for="invest-category">Kies een categorie</label>
+      <select id="invest-category"></select>
+
+      <label for="invest-product">Kies een product</label>
+      <select id="invest-product"></select>
+
+      <p><strong>Huidige prijs:</strong> <span id="invest-price">€0,00</span></p>
+      <p><strong>In bezit:</strong> <span id="invest-owned">0</span> eenheden</p>
+
+      <label for="invest-amount">Bedrag (€)</label>
+      <input type="number" id="invest-amount" placeholder="bijv. 200" step="0.01" min="0" />
+
+      <button id="invest-buy" class="primary">Kopen</button>
+      <button id="invest-sell" class="ghost">Verkopen</button>
+
+      <p id="invest-message" class="error"></p>
+    </div>
   </div>
 </section>
 

@@ -179,3 +179,16 @@ button {
   font-size: 14px;
   line-height: 1.5;
 }
+
+#invest-message {
+  margin: 0;
+  font-weight: 600;
+}
+
+#invest-message.ok {
+  color: #166534;
+}
+
+#invest-message.bad {
+  color: #991b1b;
+}

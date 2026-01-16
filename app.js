@@ -135,7 +135,7 @@ document.querySelectorAll("nav a[data-section]").forEach(link => {
     }
     // blokkeer als je niet ingelogd bent
 
-    if (!isLoggedIn && (target === "rekeningen" || target === "overschrijvingen")) {
+    if (!isLoggedIn && (target === "rekeningen" || target === "overschrijvingen" || target === "beleggingen" || target === "transacties")) {
       showSection("login");
       document.getElementById("login-error").textContent = "Log eerst in om dit te bekijken.";
       return;
@@ -309,4 +309,155 @@ transferBtn.addEventListener("click", () => {
 
   showTransferMessage(`${euro(amount)} is succesvol overgeschreven van ${accounts[fromIndex].name} naar ${accounts[toIndex].name}.`, "success");
   successVisual.classList.remove("hidden");
+});
+
+
+ // beleggen
+function investCash() {
+  return accounts[0].balance;
+}
+function setInvestCash(newValue) {
+  accounts[0].balance = Number(newValue.toFixed(2));
+}
+
+const investCategory = document.getElementById("invest-category");
+const investProduct = document.getElementById("invest-product");
+const investCashEl = document.getElementById("invest-cash");
+const investPriceEl = document.getElementById("invest-price");
+const investOwnedEl = document.getElementById("invest-owned");
+const investAmount = document.getElementById("invest-amount");
+const investBuyBtn = document.getElementById("invest-buy");
+const investSellBtn = document.getElementById("invest-sell");
+const investMsg = document.getElementById("invest-message");
+
+// producten
+const investProducts = {
+  Aandelen: [
+    { name: "S&P500", price: 120.00 },
+    { name: "Tesla", price: 80.00 },
+    { name: "Apple", price: 55.00 }
+  ],
+  Crypto: [
+    { name: "Bitcoin", price: 300.00 },
+    { name: "XRP", price: 150.00 }
+  ]
+};
+
+// bezittingen
+const holdings = {}; 
+
+function getSelectedProduct() {
+  const cat = investCategory.value;
+  const prodName = investProduct.value;
+  const prod = investProducts[cat].find(p => p.name === prodName);
+  return prod;
+}
+
+function updateInvestUI() {
+  investCashEl.textContent = euro(investCash());
+
+  const prod = getSelectedProduct();
+  investPriceEl.textContent = euro(prod.price);
+
+  const owned = holdings[prod.name] ?? 0;
+  investOwnedEl.textContent = owned.toFixed(2);
+}
+
+function setInvestMessage(text, ok) {
+  investMsg.textContent = text;
+  investMsg.classList.remove("ok", "bad");
+  investMsg.classList.add(ok ? "ok" : "bad");
+}
+
+// dropdowns
+function fillInvestCategories() {
+  investCategory.innerHTML = "";
+  Object.keys(investProducts).forEach(cat => {
+    const opt = document.createElement("option");
+    opt.value = cat;
+    opt.textContent = cat;
+    investCategory.appendChild(opt);
+  });
+}
+
+function fillInvestProducts() {
+  investProduct.innerHTML = "";
+  const cat = investCategory.value;
+  investProducts[cat].forEach(p => {
+    const opt = document.createElement("option");
+    opt.value = p.name;
+    opt.textContent = p.name;
+    investProduct.appendChild(opt);
+  });
+  updateInvestUI();
+}
+
+fillInvestCategories();
+fillInvestProducts();
+updateInvestUI();
+
+investCategory.addEventListener("change", () => {
+  fillInvestProducts();
+  setInvestMessage("", true);
+});
+
+investProduct.addEventListener("change", () => {
+  updateInvestUI();
+  setInvestMessage("", true);
+});
+
+// kopen en verkopen
+function handleBuySell(isBuy) {
+  const prod = getSelectedProduct();
+  const amount = Number(investAmount.value);
+
+  if (Number.isNaN(amount) || amount <= 0) {
+    setInvestMessage("Vul een geldig bedrag in (groter dan 0).", false);
+    return;
+  }
+
+  const units = amount / prod.price;
+
+  if (isBuy) {
+    if (investCash() < amount) {
+      setInvestMessage("Onvoldoende saldo om te kopen.", false);
+      return;
+    }
+
+    setInvestCash(investCash() - amount);
+    holdings[prod.name] = (holdings[prod.name] ?? 0) + units;
+
+    setInvestMessage(`Je hebt ${euro(amount)} geïnvesteerd in ${prod.name}.`, true);
+  } else {
+    const owned = holdings[prod.name] ?? 0;
+
+    if (owned < units) {
+      setInvestMessage("Je hebt niet genoeg eenheden om dit bedrag te verkopen.", false);
+      return;
+    }
+
+    holdings[prod.name] = owned - units;
+    setInvestCash(investCash() + amount);
+
+    setInvestMessage(`Je hebt ${euro(amount)} verkocht van ${prod.name}.`, true);
+  }
+
+  renderAccounts();
+  updateInvestUI();
+  investAmount.value = "";
+}
+
+investBuyBtn.addEventListener("click", () => handleBuySell(true));
+investSellBtn.addEventListener("click", () => handleBuySell(false));
+
+// inlog waarschuwing
+document.querySelectorAll("nav a[data-section]").forEach(link => {
+  link.addEventListener("click", () => {
+    const target = link.dataset.section;
+    if (target === "beleggingen" && isLoggedIn) {
+      updateInvestUI();
+      setInvestMessage("", true);
+      investAmount.value = "";
+    }
+  });
 });
