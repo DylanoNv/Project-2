@@ -337,10 +337,6 @@ const investProducts = {
     { name: "Tesla", price: 80.00 },
     { name: "Apple", price: 55.00 }
   ],
-  Crypto: [
-    { name: "Bitcoin", price: 300.00 },
-    { name: "XRP", price: 150.00 }
-  ]
 };
 
 // bezittingen
@@ -461,3 +457,158 @@ document.querySelectorAll("nav a[data-section]").forEach(link => {
     }
   });
 });
+
+// crypto data
+let cryptoList = [
+  { name: "Bitcoin", price: 90000 },
+  { name: "Ethereum", price: 4800 },
+  { name: "Litecoin", price: 250 }
+];
+
+// investeringen
+const cryptoInvested = {
+  Bitcoin: 0,
+  Ethereum: 0,
+  Litecoin: 0
+};
+
+const cryptoOverview = document.getElementById("crypto-overview");
+const cryptoSelect = document.getElementById("crypto-select");
+const cryptoEurInput = document.getElementById("crypto-eur");
+const cryptoBuyBtn = document.getElementById("crypto-buy");
+const cryptoSellBtn = document.getElementById("crypto-sell");
+const cryptoMessage = document.getElementById("crypto-message");
+
+function fillCryptoSelect() {
+  cryptoSelect.innerHTML = "";
+  cryptoList.forEach(c => {
+    const opt = document.createElement("option");
+    opt.value = c.name;
+    opt.textContent = c.name;
+    cryptoSelect.appendChild(opt);
+  });
+}
+
+function renderCryptoOverview(changeMap = {}) {
+  cryptoOverview.innerHTML = "";
+
+  cryptoList.forEach(c => {
+    const invested = cryptoInvested[c.name] ?? 0;
+
+    const row = document.createElement("div");
+    row.className = "crypto-row";
+
+    if (changeMap[c.name] === "up") row.classList.add("up");
+    if (changeMap[c.name] === "down") row.classList.add("down");
+
+    row.innerHTML = `
+      <span><strong>${c.name}:</strong> ${euro(invested)} (${c.price} per eenheid)</span>
+    `;
+
+    cryptoOverview.appendChild(row);
+  });
+}
+
+function getSelectedCrypto() {
+  const name = cryptoSelect.value;
+  return cryptoList.find(c => c.name === name);
+}
+
+function setCryptoMsg(text, ok = true) {
+  cryptoMessage.textContent = text;
+  cryptoMessage.style.color = ok ? "#166534" : "#dc2626";
+}
+
+function getCash() {
+  return accounts[0].balance;
+}
+function setCash(v) {
+  accounts[0].balance = Number(v.toFixed(2));
+}
+
+// kopen
+cryptoBuyBtn.addEventListener("click", () => {
+  const coin = getSelectedCrypto();
+  const amount = Number(cryptoEurInput.value);
+
+  if (Number.isNaN(amount) || amount <= 0) {
+    setCryptoMsg("Vul geldig bedrag in.", false);
+    return;
+  }
+
+  if (getCash() < amount) {
+    setCryptoMsg("Niet genoeg saldo.", false);
+    return;
+  }
+
+  setCash(getCash() - amount);
+  cryptoInvested[coin.name] += amount;
+
+  renderAccounts();
+  renderCryptoOverview();
+  setCryptoMsg(`Je hebt ${euro(amount)} in ${coin.name} geinvesteerd.`, true);
+  cryptoEurInput.value = "";
+});
+
+// verkopen
+cryptoSellBtn.addEventListener("click", () => {
+  const coin = getSelectedCrypto();
+  const amount = Number(cryptoEurInput.value);
+
+  if (Number.isNaN(amount) || amount <= 0) {
+    setCryptoMsg("Vul een geldig bedrag in.", false);
+    return;
+  }
+
+  if ((cryptoInvested[coin.name] ?? 0) < amount) {
+    setCryptoMsg("Je hebt niet genoeg geïnvesteerd om dit bedrag te verkopen.", false);
+    return;
+  }
+
+  cryptoInvested[coin.name] -= amount;
+  setCash(getCash() + amount);
+
+  renderAccounts();
+  renderCryptoOverview();
+  setCryptoMsg(`Je hebt ${euro(amount)} van ${coin.name} verkocht.`, true);
+  cryptoEurInput.value = "";
+});
+
+// koers (nep)
+function updateCryptoPrices() {
+  const changes = {};
+
+  cryptoList = cryptoList.map(c => {
+    const old = c.price;
+
+    const factor = 1 + (Math.random() * 0.06 - 0.03);
+    const newPrice = Math.max(1, Math.round(old * factor));
+
+    if (newPrice > old) changes[c.name] = "up";
+    else if (newPrice < old) changes[c.name] = "down";
+
+    return { ...c, price: newPrice };
+  });
+
+  renderCryptoOverview(changes);
+}
+
+document.querySelectorAll("nav a[data-section]").forEach(link => {
+  link.addEventListener("click", () => {
+    const target = link.dataset.section;
+    if (target === "crypto" && isLoggedIn) {
+      fillCryptoSelect();
+      renderCryptoOverview();
+      setCryptoMsg("");
+      cryptoEurInput.value = "";
+    }
+  });
+});
+
+// koers updates
+setInterval(() => {
+  const cryptoSection = document.getElementById("crypto");
+  if (cryptoSection && cryptoSection.classList.contains("visible")) {
+    updateCryptoPrices();
+  }
+}, 4000);

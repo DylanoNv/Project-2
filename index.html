@@ -19,6 +19,7 @@
     <li><a href="#" data-section="transacties">Transacties</a></li>
     <li><a href="#" data-section="overschrijvingen">Overschrijvingen</a></li>
     <li><a href="#" data-section="beleggingen">Beleggingen</a></li>
+    <li><a href="#" data-section="crypto">Crypto</a></li>
     <li><a href="#" data-section="login" id="nav-login">Login</a></li>
     <li><a href="#" id="nav-logout" class="hidden">Uitloggen</a></li>
   </ul>
@@ -160,6 +161,28 @@
       <button id="invest-sell" class="ghost">Verkopen</button>
 
       <p id="invest-message" class="error"></p>
+    </div>
+  </div>
+</section>
+
+    <!--Crypto-->
+<section id="crypto" class="section">
+  <div class="card">
+    <h2>Crypto overzicht</h2>
+
+    <div id="crypto-overview" class="crypto-overview"></div>
+
+    <div class="form">
+      <label for="crypto-select">Kies een cryptocoin:</label>
+      <select id="crypto-select"></select>
+
+      <label for="crypto-eur">Bedrag (in €):</label>
+      <input type="number" id="crypto-eur" placeholder="bijv. 100" step="0.01" min="0" />
+
+      <button id="crypto-buy" class="primary">Kopen</button>
+      <button id="crypto-sell" class="ghost">Verkopen</button>
+
+      <p id="crypto-message" class="hint"></p>
     </div>
   </div>
 </section>
