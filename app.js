@@ -488,7 +488,6 @@ function fillCryptoSelect() {
     cryptoSelect.appendChild(opt);
   });
 }
-
 function renderCryptoOverview(changeMap = {}) {
   cryptoOverview.innerHTML = "";
 
@@ -532,7 +531,7 @@ cryptoBuyBtn.addEventListener("click", () => {
   const amount = Number(cryptoEurInput.value);
 
   if (Number.isNaN(amount) || amount <= 0) {
-    setCryptoMsg("Vul geldig bedrag in.", false);
+    setCryptoMsg("Vul een geldig aantal in.", false);
     return;
   }
 
@@ -556,12 +555,12 @@ cryptoSellBtn.addEventListener("click", () => {
   const amount = Number(cryptoEurInput.value);
 
   if (Number.isNaN(amount) || amount <= 0) {
-    setCryptoMsg("Vul een geldig bedrag in.", false);
+    setCryptoMsg("Vul een geldig aantal in.", false);
     return;
   }
 
   if ((cryptoInvested[coin.name] ?? 0) < amount) {
-    setCryptoMsg("Je hebt niet genoeg geïnvesteerd om dit bedrag te verkopen.", false);
+    setCryptoMsg("Je hebt niet genoeg geinvesteerd om dit bedrag te verkopen.", false);
     return;
   }
 
@@ -574,7 +573,7 @@ cryptoSellBtn.addEventListener("click", () => {
   cryptoEurInput.value = "";
 });
 
-// koers (nep)
+// koers
 function updateCryptoPrices() {
   const changes = {};
 
